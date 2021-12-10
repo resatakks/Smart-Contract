@@ -2,6 +2,7 @@ pragma solidity ^0.4.24;
 // aaaaa
 // aaaaa
 /**
+/ aaaaaa
  */
 contract ERC20Basic {
   function totalSupply() public view returns (uint256);
