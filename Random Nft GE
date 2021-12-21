@@ -1,0 +1,72 @@
+
+% Such as:
+
+% \figs\background 
+% \figs\pattern
+
+close all
+clear
+clc
+
+%% 
+
+
+imageFiles1 = dir("figs\background \*.png");
+nofImages1 = length(imageFiles1);
+
+imageFiles2 = dir("figs\eye\*.png");
+nofImages2 = length(imageFiles2);
+
+imageFiles3 = dir("figs\eyebrow\*.png");
+nofImages3 = length(imageFiles3);
+
+imageFiles4 = dir("figs\pattern\*.png");
+nofImages4 = length(imageFiles4);
+
+for cnt1=1:nofImages1
+
+    currentFileName1 = imageFiles1(cnt1).name;
+    currentImage1 = imread([imageFiles1(cnt1).folder ,'\', currentFileName1]);
+
+    for cnt2=1:nofImages2
+
+        currentFileName2 = imageFiles2(cnt2).name;
+        currentImage2 = imread([imageFiles2(cnt2).folder ,'\', currentFileName2]);
+
+        for cnt3=1:nofImages3
+
+            currentFileName3 = imageFiles3(cnt3).name;
+            currentImage3 = imread([imageFiles3(cnt3).folder ,'\', currentFileName3]);
+
+            for cnt4=1:nofImages4
+
+                currentFileName4 = imageFiles4(cnt4).name;
+                currentImage4 = imread([imageFiles4(cnt4).folder ,'\', currentFileName4]);
+
+                imgSet = cat(4, currentImage1, currentImage2, currentImage3, currentImage4);
+
+                blankImage = mode(imgSet, 4);
+
+                sumImage = imgSet(:, :, :, 1);
+
+                for iImage = 2:size(imgSet, 4)
+
+                    temp = imgSet(:, :, :, iImage);
+
+                    mask = repmat(any((blankImage ~= temp), 3), [1 1 size(blankImage, 3)]);
+
+                    sumImage(mask) = temp(mask);
+
+                end
+
+                imshow(sumImage);
+
+                imwrite(sumImage,['\figs\output\',num2str(cnt1),num2str(cnt2),num2str(cnt3),num2str(cnt4),'Image.png']);
+
+            end
+
+        end
+
+    end
+
+end
