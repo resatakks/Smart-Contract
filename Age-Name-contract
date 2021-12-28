@@ -1,0 +1,18 @@
+pragma solidity ^0.8.9;
+contract agename{
+    uint private age;
+    string private name;
+    function setName(string memory newName)public{
+        name=newName;
+
+    }
+    function getName()public view returns (string memory){
+        return name;
+    }
+    function setAge(uint newAge)public{
+        age=newAge;
+    }
+    function getAge()public view returns(uint){
+        return age;
+    }
+}
